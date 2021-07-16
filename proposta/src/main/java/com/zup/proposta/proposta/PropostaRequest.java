@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class PropostaRequest {
 
@@ -38,6 +39,11 @@ public class PropostaRequest {
 
     public Proposta toModel(){
         return new Proposta(this.documento, this.email, this.nome, this.endereco, this.salario);
+    }
+
+    public Proposta verificaDocumento(PropostaRepository repo){
+        Optional<Proposta> proposta = repo.findByDocumento(documento);
+        return proposta.orElse(null);
     }
 
 }

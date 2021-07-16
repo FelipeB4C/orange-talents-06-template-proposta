@@ -1,4 +1,4 @@
-package com.zup.proposta.handler;
+package com.zup.proposta.exception;
 
 public class ErroDeFormulario {
 
