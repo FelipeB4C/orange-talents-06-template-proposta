@@ -2,10 +2,7 @@ package com.zup.proposta.proposta;
 
 import com.zup.proposta.validation.CpfOuCnpj;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -37,6 +34,9 @@ public class Proposta {
     @NotNull
     private BigDecimal salario;
 
+    @Enumerated(EnumType.STRING)
+    private StatusProposta statusProposta;
+
     @Deprecated
     public Proposta(){
 
@@ -52,5 +52,21 @@ public class Proposta {
 
     public Long getId() {
         return id;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setStatusProposta(StatusConsulta statusConsulta) {
+        this.statusProposta = statusConsulta.retornaStatus();
+    }
+
+    public void setStatusProposta(StatusProposta statusProposta) {
+        this.statusProposta = statusProposta;
     }
 }
