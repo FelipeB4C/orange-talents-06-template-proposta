@@ -27,7 +27,7 @@ public class PropostaController {
 
     @Transactional
     @PostMapping()
-    public ResponseEntity<?> cadastrarTeste(@RequestBody @Valid PropostaRequest req){
+    public ResponseEntity<?> cadastrarProposta(@RequestBody @Valid PropostaRequest req){
 
         Proposta existeDocumento =  req.verificaDocumento(propostaRepo);
         if(existeDocumento != null){
