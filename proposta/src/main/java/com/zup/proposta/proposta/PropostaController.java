@@ -1,5 +1,6 @@
 package com.zup.proposta.proposta;
 
+import com.zup.proposta.cartao.CartaoClient;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,15 +23,17 @@ public class PropostaController {
     private ConsultaDadosClient consultaDadosInterface;
 
     @Autowired
-    private PropostaRepository propostaRepo;
+    private CartaoClient cartaoClient;
 
+    @Autowired
+    private PropostaRepository propostaRepo;
 
     @Transactional
     @PostMapping()
-    public ResponseEntity<?> cadastrarProposta(@RequestBody @Valid PropostaRequest req){
+    public ResponseEntity<?> cadastrarProposta(@RequestBody @Valid PropostaRequest req) {
 
-        Proposta existeDocumento =  req.verificaDocumento(propostaRepo);
-        if(existeDocumento != null){
+        Proposta existeDocumento = req.verificaDocumento(propostaRepo);
+        if (existeDocumento != null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Documento não pode ser processado");
         }
         Proposta proposta = req.toModel();
@@ -39,14 +42,16 @@ public class PropostaController {
         try {
             ConsultaDadosResponse dadosResponse = consultaDadosInterface.consultarDados(new ConsultaDadosRequest(proposta));
             proposta.setStatusProposta(dadosResponse.getStatusConsulta());
-        } catch (FeignException e){
+        } catch (FeignException e) {
             proposta.setStatusProposta(StatusProposta.NAO_ELEGIVEL);
             return ResponseEntity.status(e.status()).build();
         }
+
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(proposta.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
 
 }

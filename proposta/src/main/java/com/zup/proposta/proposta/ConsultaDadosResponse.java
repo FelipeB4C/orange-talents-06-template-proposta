@@ -1,7 +1,6 @@
 package com.zup.proposta.proposta;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ConsultaDadosResponse {
 
@@ -9,6 +8,7 @@ public class ConsultaDadosResponse {
 
     @JsonCreator( mode = JsonCreator.Mode.PROPERTIES)
     public ConsultaDadosResponse(StatusConsulta resultadoSolicitacao) {
+
         this.resultadoSolicitacao = resultadoSolicitacao;
     }
 
