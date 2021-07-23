@@ -40,7 +40,7 @@ public class Proposta {
     private String cartao;
 
     @Deprecated
-    public Proposta(){
+    public Proposta() {
 
     }
 
@@ -60,13 +60,26 @@ public class Proposta {
         return documento;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
     }
 
     public StatusProposta getStatusProposta() {
         return statusProposta;
     }
+
 
     public void setStatusProposta(StatusConsulta statusConsulta) {
         this.statusProposta = statusConsulta.retornaStatus();

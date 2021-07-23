@@ -26,6 +26,7 @@ public class ConsultaCartaoPeriodicamente {
         for (Proposta proposta : propostasAprovadasSemCartaoAssociado) {
             CartaoResponse idCartao = cartaoClient.consultaCartao(proposta.getId());
             proposta.setCartao(idCartao.getId());
+            System.out.println("Testando, tem id? "+idCartao.getId());
             propostaRepository.save(proposta);
         }
 
