@@ -9,4 +9,7 @@ public interface CartaoClient {
 
     @GetMapping(value = "${consulta.cartao}?idProposta={id}", consumes = "application/json")
     CartaoResponse consultaCartao(@PathVariable("id") Long id);
+
+    @GetMapping(value = "${consulta.cartao}/{id}", consumes = "application/json")
+    CartaoResponse consultaCartaoSeExiste(@PathVariable("id") String id);
 }

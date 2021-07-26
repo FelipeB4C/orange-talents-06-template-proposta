@@ -21,12 +21,11 @@ public class ConsultaCartaoPeriodicamente {
     @Scheduled(fixedDelayString = "${periodicidade.executa-operacao}")
     public void consultaCartaoPeriodicamente() {
 
-        List<Proposta> propostasAprovadasSemCartaoAssociado = propostaRepository.findByStatusProposta(StatusProposta.ELEGIVEL);
+        List<Proposta> propostasAprovadasSemCartaoAssociado = propostaRepository.findByStatusPropostaAndCartaoIsNull(StatusProposta.ELEGIVEL);
 
         for (Proposta proposta : propostasAprovadasSemCartaoAssociado) {
             CartaoResponse idCartao = cartaoClient.consultaCartao(proposta.getId());
             proposta.setCartao(idCartao.getId());
-            System.out.println("Testando, tem id? "+idCartao.getId());
             propostaRepository.save(proposta);
         }
 
