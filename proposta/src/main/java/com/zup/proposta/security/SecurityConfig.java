@@ -16,7 +16,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests(authorizeRequests ->
                 authorizeRequests
-                        .antMatchers(HttpMethod.POST, "/bloqueios").permitAll()
+                        .antMatchers("/actuator/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/bloqueios").hasAuthority("SCOPE_proposta-scope")
                         .antMatchers(HttpMethod.POST, "/propostas").hasAuthority("SCOPE_proposta-scope")
                         .antMatchers(HttpMethod.GET, "/propostas/*").hasAuthority("SCOPE_proposta-scope")
                         .antMatchers(HttpMethod.POST, "/biometrias/*").hasAuthority("SCOPE_proposta-scope")

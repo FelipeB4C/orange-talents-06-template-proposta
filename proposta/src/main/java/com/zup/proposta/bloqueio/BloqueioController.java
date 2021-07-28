@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 @RestController
 @RequestMapping("/bloqueios")
@@ -19,6 +20,7 @@ public class BloqueioController {
     private BloqueioRepository bloqueioRepository;
 
     @PostMapping("/{idCartao}")
+    @Transactional
     public ResponseEntity<?> bloqueiaCartao(@PathVariable String idCartao,
                                             @RequestHeader(value="User-Agent") String userAgent,
                                             HttpServletRequest http){
