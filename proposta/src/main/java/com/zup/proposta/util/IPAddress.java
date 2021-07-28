@@ -1,4 +1,4 @@
-package com.zup.proposta.bloqueio;
+package com.zup.proposta.util;
 
 import org.springframework.stereotype.Component;
 

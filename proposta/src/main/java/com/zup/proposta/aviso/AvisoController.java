@@ -1,4 +1,4 @@
-package com.zup.proposta.bloqueio;
+package com.zup.proposta.aviso;
 
 import com.zup.proposta.cartao.CartaoClient;
 import com.zup.proposta.util.IPAddress;
@@ -9,38 +9,35 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/bloqueios")
-public class BloqueioController {
+@RequestMapping("/avisos")
+public class AvisoController {
 
     @Autowired
     private CartaoClient cartaoClient;
 
     @Autowired
-    private BloqueioRepository bloqueioRepository;
+    private AvisoRepository avisoRepository;
 
     @PostMapping("/{idCartao}")
     @Transactional
-    public ResponseEntity<?> bloqueiaCartao(@PathVariable String idCartao,
-                                            @RequestHeader(value="User-Agent") String userAgent,
+    public ResponseEntity<?> cadastrarAviso(@PathVariable("idCartao") String idCartao,
+                                            @RequestBody @Valid AvisoRequest req,
+                                            @RequestHeader("User-Agent") String userAgent,
                                             HttpServletRequest http){
-
-        try{
+        try {
             cartaoClient.consultaCartaoSeExiste(idCartao);
         } catch (FeignException e){
             return ResponseEntity.status(e.status()).build();
         }
 
-        BloqueioRequest request = new BloqueioRequest("sistema-proposta/orange-talents");
-        BloqueioResponse statusCartao = cartaoClient.bloqueiaCartao(idCartao, request);
-        Bloqueio bloqueio = statusCartao.toModel(IPAddress.getClientIp(http), userAgent);
-        bloqueioRepository.save(bloqueio);
+        Aviso aviso = req.toModel(userAgent, IPAddress.getClientIp(http));
 
-        return ResponseEntity.ok().body(statusCartao.getResultado());
+        avisoRepository.save(aviso);
 
-
-
+        return ResponseEntity.ok().build();
     }
 
 
