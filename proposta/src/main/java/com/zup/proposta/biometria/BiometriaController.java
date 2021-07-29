@@ -1,6 +1,6 @@
 package com.zup.proposta.biometria;
 
-import com.zup.proposta.cartao.CartaoClient;
+import com.zup.proposta.client.CartaoClient;
 import com.zup.proposta.cartao.CartaoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

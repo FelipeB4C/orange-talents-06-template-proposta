@@ -1,6 +1,6 @@
 package com.zup.proposta.bloqueio;
 
-import com.zup.proposta.cartao.CartaoClient;
+import com.zup.proposta.client.CartaoClient;
 import com.zup.proposta.util.IPAddress;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;

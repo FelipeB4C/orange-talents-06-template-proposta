@@ -1,5 +1,6 @@
 package com.zup.proposta.cartao;
 
+import com.zup.proposta.client.CartaoClient;
 import com.zup.proposta.proposta.Proposta;
 import com.zup.proposta.proposta.PropostaRepository;
 import com.zup.proposta.proposta.StatusProposta;

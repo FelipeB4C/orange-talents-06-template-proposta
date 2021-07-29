@@ -1,9 +1,12 @@
-package com.zup.proposta.cartao;
+package com.zup.proposta.client;
 
 import com.zup.proposta.aviso.AvisoRequest;
 import com.zup.proposta.aviso.AvisoResponse;
 import com.zup.proposta.bloqueio.BloqueioRequest;
 import com.zup.proposta.bloqueio.BloqueioResponse;
+import com.zup.proposta.cartao.CartaoResponse;
+import com.zup.proposta.carteira.CarteiraResponse;
+import com.zup.proposta.carteira.CarteiraRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,5 +27,8 @@ public interface CartaoClient {
 
     @PostMapping(value = "${consulta.cartao}/{id}/avisos", consumes = "application/json")
     AvisoResponse avisoViagem(@PathVariable("id") String id, @RequestBody AvisoRequest req);
+
+    @PostMapping(value = "${consulta.cartao}/{id}/carteiras", consumes = "application/json")
+    CarteiraResponse associaCarteira(@PathVariable("id") String id, @RequestBody CarteiraRequest req);
 
 }

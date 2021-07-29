@@ -1,5 +1,7 @@
-package com.zup.proposta.proposta;
+package com.zup.proposta.client;
 
+import com.zup.proposta.proposta.ConsultaDadosRequest;
+import com.zup.proposta.proposta.ConsultaDadosResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 

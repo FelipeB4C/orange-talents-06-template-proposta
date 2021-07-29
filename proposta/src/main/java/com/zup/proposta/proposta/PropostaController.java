@@ -1,6 +1,7 @@
 package com.zup.proposta.proposta;
 
-import com.zup.proposta.cartao.CartaoClient;
+import com.zup.proposta.client.CartaoClient;
+import com.zup.proposta.client.ConsultaDadosClient;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
