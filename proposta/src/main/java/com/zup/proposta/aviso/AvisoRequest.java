@@ -19,8 +19,15 @@ public class AvisoRequest {
         this.validoAte = validoAte;
     }
 
-    public Aviso toModel(String userAgent, String ipClient){
+    public Aviso toModel(String ipClient, String userAgent){
         return new Aviso(ipClient, userAgent);
     }
 
+    public String getDestino() {
+        return destino;
+    }
+
+    public LocalDate getValidoAte() {
+        return validoAte;
+    }
 }

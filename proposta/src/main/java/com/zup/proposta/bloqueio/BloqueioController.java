@@ -28,18 +28,15 @@ public class BloqueioController {
 
         try{
             cartaoClient.consultaCartaoSeExiste(idCartao);
+            BloqueioRequest request = new BloqueioRequest("sistema-proposta/orange-talents");
+            BloqueioResponse statusCartao = cartaoClient.bloqueiaCartao(idCartao, request);
+            Bloqueio bloqueio = statusCartao.toModel(IPAddress.getClientIp(http), userAgent);
+            bloqueioRepository.save(bloqueio);
+
+            return ResponseEntity.ok().body(statusCartao.getResultado());
         } catch (FeignException e){
             return ResponseEntity.status(e.status()).build();
         }
-
-        BloqueioRequest request = new BloqueioRequest("sistema-proposta/orange-talents");
-        BloqueioResponse statusCartao = cartaoClient.bloqueiaCartao(idCartao, request);
-        Bloqueio bloqueio = statusCartao.toModel(IPAddress.getClientIp(http), userAgent);
-        bloqueioRepository.save(bloqueio);
-
-        return ResponseEntity.ok().body(statusCartao.getResultado());
-
-
 
     }
 

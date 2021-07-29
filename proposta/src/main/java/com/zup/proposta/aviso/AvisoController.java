@@ -26,19 +26,18 @@ public class AvisoController {
     public ResponseEntity<?> cadastrarAviso(@PathVariable("idCartao") String idCartao,
                                             @RequestBody @Valid AvisoRequest req,
                                             @RequestHeader("User-Agent") String userAgent,
-                                            HttpServletRequest http){
+                                            HttpServletRequest http) {
+        System.out.println(idCartao);
         try {
             cartaoClient.consultaCartaoSeExiste(idCartao);
-        } catch (FeignException e){
+            AvisoResponse resultado = cartaoClient.avisoViagem(idCartao, req);
+            Aviso aviso = req.toModel(userAgent, IPAddress.getClientIp(http));
+            avisoRepository.save(aviso);
+            return ResponseEntity.ok(resultado.getResultado());
+        } catch (FeignException e) {
             return ResponseEntity.status(e.status()).build();
         }
 
-        Aviso aviso = req.toModel(userAgent, IPAddress.getClientIp(http));
-
-        avisoRepository.save(aviso);
-
-        return ResponseEntity.ok().build();
     }
-
 
 }

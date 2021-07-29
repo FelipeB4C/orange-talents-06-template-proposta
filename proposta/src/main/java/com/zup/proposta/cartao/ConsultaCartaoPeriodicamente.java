@@ -24,7 +24,8 @@ public class ConsultaCartaoPeriodicamente {
         List<Proposta> propostasAprovadasSemCartaoAssociado = propostaRepository.findByStatusPropostaAndCartaoIsNull(StatusProposta.ELEGIVEL);
 
         for (Proposta proposta : propostasAprovadasSemCartaoAssociado) {
-            CartaoResponse idCartao = cartaoClient.consultaCartao(proposta.getId());
+            String id = String.valueOf(proposta.getId());
+            CartaoResponse idCartao = cartaoClient.consultaCartao(id);
             proposta.setCartao(idCartao.getId());
             propostaRepository.save(proposta);
         }

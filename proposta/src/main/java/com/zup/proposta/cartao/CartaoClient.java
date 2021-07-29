@@ -1,5 +1,7 @@
 package com.zup.proposta.cartao;
 
+import com.zup.proposta.aviso.AvisoRequest;
+import com.zup.proposta.aviso.AvisoResponse;
 import com.zup.proposta.bloqueio.BloqueioRequest;
 import com.zup.proposta.bloqueio.BloqueioResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface CartaoClient {
 
     @GetMapping(value = "${consulta.cartao}?idProposta={id}", consumes = "application/json")
-    CartaoResponse consultaCartao(@PathVariable("id") Long id);
+    CartaoResponse consultaCartao(@PathVariable("id") String id);
 
     @GetMapping(value = "${consulta.cartao}/{id}", consumes = "application/json")
     CartaoResponse consultaCartaoSeExiste(@PathVariable("id") String id);
 
     @PostMapping(value = "${consulta.cartao}/{id}/bloqueios", consumes = "application/json")
     BloqueioResponse bloqueiaCartao(@PathVariable("id") String id, @RequestBody BloqueioRequest req);
+
+    @PostMapping(value = "${consulta.cartao}/{id}/avisos", consumes = "application/json")
+    AvisoResponse avisoViagem(@PathVariable("id") String id, @RequestBody AvisoRequest req);
+
 }
