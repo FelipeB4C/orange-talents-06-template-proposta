@@ -24,21 +24,46 @@ public class CarteiraController {
 
     @PostMapping("/paypal/{idCartao}")
     @Transactional
-    public ResponseEntity<?> associaCarteira(@PathVariable("idCartao") String idCartao, @RequestBody @Valid CarteiraRequest req){
+    public ResponseEntity<?> associaCarteiraPaypal(@PathVariable("idCartao") String idCartao,
+                                                   @RequestBody @Valid CarteiraRequest req){
 
-        req.setCarteira("Paypal");
+        final String emissor = "Paypal";
+        req.setCarteira(emissor);
 
         try {
             cartaoClient.consultaCartaoSeExiste(idCartao);
             CarteiraResponse carteiraResponse = cartaoClient.associaCarteira(idCartao, req);
 
-            Carteira carteira = new Carteira(req.getEmail(), "Paypal");
+            Carteira carteira = new Carteira(req.getEmail(), emissor);
             carteiraRepository.save(carteira);
 
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}").buildAndExpand(carteira.getId()).toUri();
             return ResponseEntity.created(uri).build();
         } catch (FeignException e){
+            return ResponseEntity.status(e.status()).build();
+        }
+
+    }
+
+    @PostMapping("/samsungpay/{idCartao}")
+    @Transactional
+    public ResponseEntity<?> associaCarteiraSamsungpay(@PathVariable("idCartao") String idCartao,
+                                                       @RequestBody @Valid CarteiraRequest req){
+        final String emissor = "Samsung Pay";
+        req.setCarteira(emissor);
+
+        try {
+            cartaoClient.consultaCartaoSeExiste(idCartao);
+            CarteiraResponse carteiraResponse = cartaoClient.associaCarteira(idCartao, req);
+
+            Carteira carteira = new Carteira(req.getEmail(), emissor);
+            carteiraRepository.save(carteira);
+
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}").buildAndExpand(carteira.getId()).toUri();
+            return ResponseEntity.created(uri).build();
+        }catch (FeignException e){
             return ResponseEntity.status(e.status()).build();
         }
 
