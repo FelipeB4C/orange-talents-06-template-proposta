@@ -7,12 +7,14 @@ import com.zup.proposta.bloqueio.BloqueioResponse;
 import com.zup.proposta.cartao.CartaoResponse;
 import com.zup.proposta.carteira.CarteiraResponse;
 import com.zup.proposta.carteira.CarteiraRequest;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+//@ConditionalOnProperty(name = "opentracing.spring.cloud.feign.enabled", havingValue = "true", matchIfMissing = true)
 @FeignClient(name = "consultaCartao", url = "${local.consulta.cartao}")
 public interface CartaoClient {
 
