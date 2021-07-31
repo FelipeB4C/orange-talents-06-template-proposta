@@ -1,6 +1,7 @@
 package com.zup.proposta.proposta;
 
 import com.zup.proposta.validation.CpfOuCnpj;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -45,7 +46,7 @@ public class Proposta {
     }
 
     public Proposta(String documento, String email, String nome, String endereco, BigDecimal salario) {
-        this.documento = documento;
+        this.documento = new BCryptPasswordEncoder().encode(documento);
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
